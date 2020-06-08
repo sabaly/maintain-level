@@ -1,6 +1,5 @@
 !(function($) {
 	'use strict';
-	
 
 	/*		Validation for login formular 	*/
 	$('#login-form').submit(function(e) {
@@ -100,6 +99,33 @@
 		});
 
 	});
-	
 
-})(jQuery) ;
+
+	/* 	Validation for discuss form 	*/
+	$('#discuss-form').submit(function(e) {
+		e.preventDefault();
+
+		if($('#pro').val() == '') {
+			$('#pro').addClass('error');
+			return false;
+		}else if($('#pro').hasClass('error')){
+			$('#pro').removeClass('error');
+		}
+
+		var chat = $(this).serialize();
+		var action = $(this).attr('action');
+		if()
+		$.ajax({
+			type: 'POST',
+			url : action,
+			data : chat,
+			success : function(msg) {
+				//alert(msg);
+				location.reload();
+			}
+		});
+
+	});
+
+	
+})(jQuery);

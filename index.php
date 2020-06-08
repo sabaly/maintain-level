@@ -75,21 +75,21 @@
 		<article class="container" id="apropos">
 			<h2 class="titles"><i class="icofont-info-circle"></i> A propos</h2>
 			<p>
-				Voici une plateforme d'aide en ligne sous la disposition des élèves candidats. Dans cette plateforme, un candidat peut créer des discussions. Une discussion est un problème posé auquel les autres intervenants (étudiants, enseignants ou d'autres élèves) peuvent apporter des éclairecissements. Il peut aussi suivre les discussions des autres utilisateurs.<br/><br/>
-				Quant aux enseignants et étudiants, ils peuvent eux aussi créer des discussion. Ces discussions sont plus souvent pour enseigner des notions particulières.<br/><br/>
+				Voici une plateforme d'aide en ligne sous la disposition des élèves candidats. Dans cette plateforme, un candidat peut créer des discussions. Une discussion est un problème posé auquel les autres intervenants (étudiants, enseignants ou d'autres élèves) peuvent apporter des éclaircissements. Il peut aussi suivre les discussions des autres utilisateurs.<br/><br/>
+				Quant aux enseignants et étudiants, ils peuvent eux aussi créer des discussions. Ces discussions sont plus souvent pour enseigner des notions particulières.<br/><br/>
 				Elève, enseignant et étudiant peuvent partager du contenu : images, documents, lien etc...
 			</p>
 			<div class="flex-menu">
-				<span><a href="<?= ($signout == '') ? '#' : '';?>"><i class="icofont-plus rounded rounded-circle <?= $signout ?>"></i></a><br>Nouvelle discussion</span>
+				<span><a href="<?= ($signout == '') ? 'Pages/discussions.php' : '';?>"><i class="icofont-plus rounded rounded-circle <?= $signout ?>"></i></a><br>Nouvelle discussion</span>
 				<span><a href="<?= ($signout == '') ? 'Pages/discussions.php#discusses-table' : '';?>"><i class="icofont-chat rounded rounded-circle <?= $signout ?>"></i></a><br>Discussions</span>
 				<span><a href="<?= ($signout == '') ? '#' : '';?>"><i class="icofont-share rounded rounded-circle <?= $signout ?>"></i></a><br>Partager</span>
 
-				<span><a href="<?= ($signin == '') ? '#' : '';?>"><i class="<?= $signin_icon?> rounded rounded-circle <?= $signout ?>"></i></a><br><?= $signin ?></span>
+				<span><a href="<?= ($signin == '') ? '' : '';?>"><i class="<?= $signin_icon?> rounded rounded-circle <?= $signout ?>"></i></a><br><?= $signin ?></span>
 			</div>
 
-			<div class="login-form">
+			<div class="login-form" id="seConnecter">
 				<h2 class="titles"><i class="icofont-login"></i> Connexion</h2>
-				<form class="form-row" id="login-form" action="Manager/Action/Connexion-form-submit.php">
+				<form class="form-row" id="login-form" action=" <?= ($signin == 'Connecté') ? '' : 'Manager/Action/Connexion-form-submit.php'?> ">
 					<div class="form-group col-md-6">
 						<label for="Identifiant">Identifiant</label>
 						<input type="text" name="pseudo" class="form-control" id="Identifiant" placeholder="pseudo" <?= ($signin == 'Connecté') ? 'disabled' : ''?>>

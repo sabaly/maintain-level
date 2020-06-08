@@ -86,8 +86,13 @@
 					</div>
 
 					<div id="answer">
-						<textarea placeholder="répondre au problème ici"></textarea>
-						<button class="btn rounded rounded-circle"><i class="icofont-paper-plane"></i></button>
+						<form id="chat-form" action="../Manager/Action/Chat-form-submit.php">
+							<div class="form-group">
+								<input type="hidden" name="iddiscuss" value="1">
+								<textarea placeholder="répondre au problème ici" name="message"></textarea>
+								<button class="btn rounded rounded-circle"><i class="icofont-paper-plane"></i></button>
+							</div>
+						</form>
 					</div>
 				</div>
 			</aside>
