@@ -1,0 +1,282 @@
+
+
+/*	some classes		*/
+.alert {
+	color: red;
+	margin: 0 0 15px 0;
+	font-weight: 400;
+	font-size: 13px;
+	background-color: #FFE6DE;
+	text-align: center;
+}
+
+.error {
+	border: 1px solid red;
+}
+.success {
+	border: 1px solid green;
+}
+
+/*############################################
+#	Index.php
+############################################*/
+
+/* header */
+#header {
+	box-shadow: 2px 15px 10px rgba(0,0,0, 0.7);
+	background-color: #fff;
+	height: 12vh;
+	z-index: 999;
+}
+
+.header-content {
+	padding: 2px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.header-content img {
+	width: 30px;
+	height: 30px;
+}
+
+.social-networks {
+	position: relative;
+	top: 30px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.social-networks a {
+	padding: 5px;
+	color: #00f;
+  	line-height: 1px;
+  	border-radius: 30px;
+  	text-decoration: none;
+  	transition: 0.3s;
+}
+
+.social-networks a:hover, .social-networks i:hover{
+	transition: 0.3s;
+	background-color: #00f;
+	color: #fff;
+}
+
+.social-networks span .status {
+	margin-left: 8px;
+	color: #f00;
+	font-size: 15px;
+	background-color: #fff;
+}
+
+.social-networks i {
+	font-size: 20px;
+	color: blue;
+	margin: 10px;
+}
+
+/*	main 	*/
+#main {
+	position: relative;
+	margin-top: 100px;
+	padding: 10px;
+	background-color: #f7fbfe;
+}
+
+
+
+.titles {
+	font-family: Poppins, sans-serif;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.titles i{
+	color: #00f;
+}
+
+#apropos {
+	width: 50%;
+	font-family: 
+}
+
+.flex-menu {
+	margin-top: 40px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.flex-menu span {
+	padding: 15px;
+	text-align: center;
+}
+
+.flex-menu span a {
+	text-decoration: none;
+}
+
+.flex-menu span i{
+	padding: 5px;
+	color: #00f;
+	font-size: 50px;
+}
+
+.flex-menu span i:hover {
+	transition: all 0.7s;
+	background-color: #00f;
+	color: #fff;
+}
+
+.flex-menu span i.signout, .flex-menu span i.signout:hover {
+	color: #000;
+	background-color: #fff;
+}
+
+.login-form{
+	background-color: #fff;
+	padding: 10px;
+	border-radius: 4px;
+}
+
+.signin-form {
+	margin-top: 10px;
+	background-color: rgba(0,0,255,0.2);
+	padding: 10px;
+	border-radius: 4px;
+}
+
+.login-form .form-group, .signin-form .form-group {
+	padding-bottom: 8px;
+}
+
+.btn-submit { 
+	position: relative;
+	top: 30px;
+}
+
+@media (max-width: 768px) {
+
+	#apropos {
+		width: 100%;
+	}
+}
+
+/* 	footer 	*/
+
+
+.copyright {
+	text-align: center;
+	padding: 20px;
+	margin: 20px;
+}
+
+/*############################################
+#	chat
+############################################*/
+.chatBody {
+	display: flex;
+	justify-content: space-between;
+}
+
+.chatBody .flex-menu {
+	position: fixed;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	float: left;
+}
+
+.chatBody .flex-menu i{
+	font-size: 25px;
+}
+
+
+#newDiscuss {
+	margin-bottom: 15px;
+}
+#newDiscuss button {
+	width: 20%;
+	margin: auto;
+}
+#newDiscuss textarea {
+	resize: vertical;
+	height: 250px;
+	max-height: 300px;
+}
+
+#chatbox, #board {
+	background-color: #fff;
+}
+
+#chats {
+	border-radius: 4px;
+	background-color: #f7fbfe;
+	padding: 4px;
+}
+#chats h3{
+	color: #00f;
+}
+#chats p{
+	position: relative;
+	left: 15px;
+	border-bottom: 1px solid #00f;
+	box-shadow: 1px 5px 4px #00f;
+	padding: 5px;
+}
+
+
+#problem {
+	background-color: #FFE6DE;
+	border-radius: 4px;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+#problem h2 {
+	color: #f00;
+	font-size: 20px;
+	font-family: Poppins sans-serif;
+}
+#problem p {
+	padding: 15px;
+}
+
+
+#mydiscuss {
+	background-color: #CED5FF;
+	border-radius: 4px;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+#mydiscuss h2 {
+	color: #00f;
+	font-size: 20px;
+	font-family: Poppins sans-serif;
+}
+
+#answer {
+	position: relative;
+	bottom: 0px;
+	display: inline-block;
+}
+
+#answer textarea{
+	resize: none;
+	width: 300px;
+	height: 220px;
+}
+#answer button {
+	background-color: #00f;
+}
+
+#answer button i{
+	font-size: 20px;
+	color: #fff;
+}
+
+
+
