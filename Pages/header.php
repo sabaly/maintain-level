@@ -1,8 +1,12 @@
 <header class="container-fluid fixed-top" id="header">
 	<div class="container header-content">
+		<!--=== Mobile menu ===-->
+		<button class="btn d-lg-none mobile-menu mobile-nav-toggle"><i class="icofont-navigation-menu rounded rounded-circle"></i></button>
+
 		<div style="text-align: center">
 			<img src="../assets/img/logo.jpg" alt="logo de Maintain-level"/>
-			<p>Ensemble pour le maintien du niveau des élèves</p>
+			<p class="d-none d-lg-block">Ensemble pour le maintien du niveau des élèves</p>
+			<p class="d-lg-none">Maintain-Level</p>
 		</div>
 		
 

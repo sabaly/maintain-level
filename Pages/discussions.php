@@ -60,7 +60,7 @@ if(isset($_GET['del']))
 
 	<main id="main">
 		<div class="container chatBody">
-			<aside class="col-md-2 d-none d-lg-block">
+			<aside class="col-md-2 d-none d-lg-block menu">
 				<div class="flex-menu ">
 					<span><a href="discussions.php"><i class="icofont-plus rounded rounded-circle"></i></a><br>Nouvelle discussion</span>
 					<span><a href="#discusses-table"><i class="icofont-chat rounded rounded-circle"></i></a><br>Discussions</span>

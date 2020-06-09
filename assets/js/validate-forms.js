@@ -114,7 +114,7 @@
 
 		var chat = $(this).serialize();
 		var action = $(this).attr('action');
-		if()
+
 		$.ajax({
 			type: 'POST',
 			url : action,
@@ -124,8 +124,6 @@
 				location.reload();
 			}
 		});
-
 	});
 
-	
 })(jQuery);

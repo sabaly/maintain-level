@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+require '../Manager/autoload.php';
+
+$db = DBFactory::getMysqlConnexionWithPDO();
+$manager = new ChatManager_PDO($db);
+
+if(!isset($_SESSION['user']))
+{
+	header('Location: ../index.php');
+}
+else
+{
+	$user = unserialize($_SESSION['user']);
+}
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +44,10 @@
 <body>
 	<!--=== header ===-->
 	<?php include_once("header.php"); ?>
-
+	
 	<main id="main">
 		<div class="container-fluid chatBody">
-			<aside class="col-md-2 d-none d-lg-block">
+			<aside class="col-md-2 d-none d-lg-block menu">
 				<div class="flex-menu">
 					<span><a href="discussions.php"><i class="icofont-plus rounded rounded-circle"></i></a><br>Nouvelle discussion</span>
 					<span><a href="discussions.php#discusses-table"><i class="icofont-chat rounded rounded-circle "></i></a><br>Discussions</span>
@@ -40,15 +59,19 @@
 			<article id="chatbox" class="col-md-6 col-sm-12">
 				<div id="chats">
 					<!--In phones -->
-					<div class="d-lg-none">
+					<!--==== button to check the problem ===-->
+					<button class="btn d-lg-none mobile-problem mobile-pro-toggle"><i class="icofont-question rounded rounded-circle"></i></button>
+					<button class="btn d-lg-none mobile-answer mobile-ans-toggle"><i class="icofont-paper-plane rounded rounded-circle"></i></button>
+					
+					<div class="d-none problem-in-mobile">
 							<h2><i class="icofont-question-circle"></i> Problèmatique</h2>
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 					</div>
 
-					<div id="answer" class="d-lg-none">
-						<textarea placeholder="répondre au problème ici"></textarea>
+					<div class="d-none answer-in-mobile">
+						<textarea placeholder="répondre au problème ici" class="form-control"></textarea>
 						<button class="btn rounded rounded-circle"><i class="icofont-paper-plane"></i></button>
 					</div>
 
@@ -101,5 +124,16 @@
 
 	<!--=== footer ===-->
 	<?php include_once("footer.php"); ?>
+
+	<!--=== JS Vendor ===-->
+	<script type="text/javascript" src="../assets/vendor/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../assets/vendor/jquery.color/jquery.color.js"></script>
+	<script type="text/javascript" src="../assets/vendor/venobox/venobox.js"></script>
+	<script type="text/javascript" src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+	<script type="text/javascript" src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+
+	<!--=== My JS files ===-->
+	<script type="text/javascript" src="../assets/js/index.js"></script>
+	<script type="text/javascript" src="../assets/js/validate-forms.js"></script>
 </body>
 </html>

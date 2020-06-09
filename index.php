@@ -56,7 +56,8 @@
 		<div class="container header-content">
 			<div style="text-align: center">
 				<img src="assets/img/logo.jpg" alt="logo de Maintain-level"/>
-				<p>Ensemble pour le maintien du niveau des élèves</p>
+				<p class="d-none d-lg-block">Ensemble pour le maintien du niveau des élèves</p>
+				<p class="d-lg-none">Maintain-Level</p>
 			</div>
 			
 
