@@ -1,6 +1,7 @@
 !(function($) {
 	'use strict';
 
+
 	/*		Validation for login formular 	*/
 	$('#login-form').submit(function(e) {
 		e.preventDefault();
@@ -121,6 +122,57 @@
 			data : chat,
 			success : function(msg) {
 				//alert(msg);
+				location.reload();
+			}
+		});
+	});
+
+	/* 	Validation for chat post form 	*/
+	$('#chat-form').submit(function(e) {
+		e.preventDefault();
+
+		if($('#msg').val() == '') {
+			$('#msg').addClass('error');
+			return false;
+		}else if($('#msg').hasClass('error')){
+			$('#msg').removeClass('error');
+		}
+		
+
+		var message = $(this).serialize();
+		var action = $(this).attr('action');
+
+		$.ajax({
+			type: 'POST',
+			url : action,
+			data : message,
+			success : function(msg) {
+				location.reload();
+			}
+		});
+	});
+
+	/* 	Validation for chat post form 	*/
+	$(".mobile-ans #mobile-chat-form").submit(function(e) {
+		e.preventDefault();
+
+
+		if($('.mobile-ans #msg-mobile').val() == '') {
+			$('.mobile-ans #msg-mobile').addClass('error');
+			return false;
+		}else if($('.mobile-ans #msg-mobile').hasClass('error')){
+			$('.mobile-ans #msg-moile').removeClass('error');
+		}
+			
+
+		var message = $(this).serialize();
+		var action = $(this).attr('action');
+
+		$.ajax({
+			type: 'POST',
+			url : action,
+			data : message,
+			success : function(msg) {
 				location.reload();
 			}
 		});

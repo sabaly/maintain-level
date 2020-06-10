@@ -83,7 +83,7 @@
 			<div class="flex-menu">
 				<span><a href="<?= ($signout == '') ? 'Pages/discussions.php' : '';?>"><i class="icofont-plus rounded rounded-circle <?= $signout ?>"></i></a><br>Nouvelle discussion</span>
 				<span><a href="<?= ($signout == '') ? 'Pages/discussions.php#discusses-table' : '';?>"><i class="icofont-chat rounded rounded-circle <?= $signout ?>"></i></a><br>Discussions</span>
-				<span><a href="<?= ($signout == '') ? '#' : '';?>"><i class="icofont-share rounded rounded-circle <?= $signout ?>"></i></a><br>Partager</span>
+				<span><a href="<?= ($signout == '') ? '#' : '';?>"><i class="icofont-clip rounded rounded-circle signout"></i></a><br>Contenu</span>
 
 				<span><a href="<?= ($signin == '') ? '' : '';?>"><i class="<?= $signin_icon?> rounded rounded-circle <?= $signout ?>"></i></a><br><?= $signin ?></span>
 			</div>

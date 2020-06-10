@@ -286,20 +286,29 @@
 #chats h3{
 	color: #00f;
 }
-#chats p{
-	position: relative;
-	left: 15px;
-	border-bottom: 1px solid #00f;
-	box-shadow: 1px 5px 4px #00f;
-	padding: 5px;
+#chats h3 small, #chats .mychat small {
+	font-size: 14px;
 }
 
+#chats .mychat {
+	color: #00AD18;
+}
+
+#chats p{
+	text-align: justify;
+}
+#chats .no_answer {
+	border-bottom: 1px solid #f00;
+	box-shadow: 1px 5px 4px #f00;
+}
 
 #problem {
 	background-color: #FFE6DE;
 	border-radius: 4px;
 	padding: 5px;
 	margin-bottom: 5px;
+	overflow-y: scroll;
+	height: 150px;
 }
 
 #problem h2, .mobile-pro h2 {
@@ -307,8 +316,9 @@
 	font-size: 20px;
 	font-family: Poppins sans-serif;
 }
-#problem p {
+#problem p, .mobile-pro p {
 	padding: 15px;
+	text-align: justify;
 }
 
 
@@ -317,12 +327,18 @@
 	border-radius: 4px;
 	padding: 5px;
 	margin-bottom: 5px;
+	overflow-y: scroll;
+	height: 170px; 
 }
 
 #mydiscuss h2, .problem-in-mobile h2 {
 	color: #00f;
 	font-size: 20px;
 	font-family: Poppins sans-serif;
+}
+#mydiscuss li button:hover {
+	background-color: #00f;
+	color: #fff;
 }
 
 #answer {
@@ -333,8 +349,8 @@
 
 #answer textarea{
 	resize: none;
-	width: 300px;
-	height: 220px;
+	width: 350px;
+	height: 200px;
 }
 #answer button, .mobile-ans button {
 	background-color: #00f;

@@ -1,5 +1,6 @@
 !(function($) {
 	'use strict';
+	
 
 	//Deconnexion
 	$('#disconnect-btn').on('click', function() {
@@ -93,9 +94,9 @@
 	        var ansContainer = $(".mobile-ans, .mobile-ans-toggle");
 	        if (!ansContainer.is(e.target) && ansContainer.has(e.target).length === 0) {
 		        if ($('body main').hasClass('mobile-ans-active')) {
-		          $('body main').removeClass('mobile-ans-active');
-            	  $('.mobile-ans-toggle i').toggleClass('icofont-paper-plane icofont-caret-left');
-		          $('.mobile-ans-overly').fadeOut(500);
+		            $('body main').removeClass('mobile-ans-active');
+            	    $('.mobile-ans-toggle i').toggleClass('icofont-paper-plane icofont-caret-left');
+		            $('.mobile-ans-overly').fadeOut(500);
 		        }
 	      	}
 	    });

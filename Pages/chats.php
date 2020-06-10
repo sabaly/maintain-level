@@ -5,6 +5,9 @@ require '../Manager/autoload.php';
 
 $db = DBFactory::getMysqlConnexionWithPDO();
 $manager = new ChatManager_PDO($db);
+$manager_discuss = new DiscussManager_PDO($db);
+
+$mydiscusses = $manager_discuss->getList();
 
 if(!isset($_SESSION['user']))
 {
@@ -16,6 +19,26 @@ else
 }
 
 
+if(isset($_GET['id']))
+{
+	$discuss = $manager_discuss->getUnique($_GET['id']);
+	if($discuss == null)
+		header('Location: ../error.php');
+
+	$chats = $manager->chatFromDiscuss($_GET['id']);
+}
+if(isset($_GET['upd']))
+{
+	if($manager->getUnique($_GET['upd']) == null){
+		header('Location: ../error.php');
+	}
+}
+
+if(isset($_GET['del']))
+{
+	$manager->delete($_GET['del']);
+	header('Location: chats.php?id='.$_GET['id']);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +74,7 @@ else
 				<div class="flex-menu">
 					<span><a href="discussions.php"><i class="icofont-plus rounded rounded-circle"></i></a><br>Nouvelle discussion</span>
 					<span><a href="discussions.php#discusses-table"><i class="icofont-chat rounded rounded-circle "></i></a><br>Discussions</span>
-					<span><a href=""><i class="icofont-share rounded rounded-circle "></i></a><br>Partager</span>
+					<span><a href=""><i class="icofont-clip signout rounded rounded-circle "></i></a><br>Contenu</span>
 					<span><a href="../index.php"><i class="icofont-home rounded rounded-circle"></i></a><br>Accueil</span>
 				</div>
 			</aside>
@@ -61,32 +84,72 @@ else
 					<!--In phones -->
 					<!--==== button to check the problem ===-->
 					<button class="btn d-lg-none mobile-problem mobile-pro-toggle"><i class="icofont-question rounded rounded-circle"></i></button>
+
 					<button class="btn d-lg-none mobile-answer mobile-ans-toggle"><i class="icofont-paper-plane rounded rounded-circle"></i></button>
 					
 					<div class="d-none problem-in-mobile">
 							<h2><i class="icofont-question-circle"></i> Problèmatique</h2>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							<h6><?= $discuss->problem() ; ?></h6>
+							<p>
+								<?= $discuss->details() ; ?>
+							</p>
 					</div>
 
 					<div class="d-none answer-in-mobile">
-						<textarea placeholder="répondre au problème ici" class="form-control"></textarea>
-						<button class="btn rounded rounded-circle"><i class="icofont-paper-plane"></i></button>
+						<form id="mobile-chat-form" action="../Manager/Action/Chat-form-submit.php">
+							<div class="form-group">
+								<input type="hidden" name="update" value="<?= (isset($_GET['upd'])) ? $_GET['upd'] : false ; ?>">
+
+								<input type="hidden" name="iddiscuss" value="<?= $discuss->iddiscuss() ; ?>">
+
+								<textarea placeholder="répondre au problème ici" class="form-control" id="msg-mobile" name="message"><?= (isset($_GET['upd'])) ? $manager->getUnique($_GET['upd'])->message()  : "" ; ?></textarea>
+
+								<button class="btn rounded rounded-circle"><i class="icofont-paper-plane" id="mobile-submit-btn"></i></button>
+							</div>
+						</form>
 					</div>
 
-					<?php for($i = 0; $i<10; $i++) {?>
-						<h3><i class="icofont-unique-idea"></i> Author  - <small><em>17/05/2020 à 17h 20mn</em></small></h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						<aside id="small-flex-menu">
+					<?php foreach ($chats as $chat) {
+						$userManager = new UserManager_PDO($db);
+						$author = $userManager->getUnique($chat->iduser());
+						if($discuss->iduser() != $chat->iduser())
+						{
+							$class = 'mychat';
+							$icon = 'icofont-unique-idea';
+						}
+						else
+						{
+							$class = '';
+							$icon = 'icofont-waiter';
+						}
+					?>
+						<h3 class="<?= $class ?>"><i class="<?= $icon ; ?>"></i> <?= ($chat->iduser() != $user->iduser()) ? $author->pseudo() : 'Vous' ; ?>
+
+						<?php if($chat->iduser() == $user->iduser()) {?>
+							<span id="small-flex-menu" style="font-size: 20px; float: right;">
+								<a href="chats.php?upd=<?=$chat->idchat(); ?>&id=<?= $_GET['id']?>" style="text-decoration: none;">
+									<i class="icofont-pencil" title="modifier" style="color:#0f0"></i>
+								</a>
+								<a href="chats.php?del=<?=$chat->idchat(); ?>&id=<?= $_GET['id']?>" style="text-decoration: none;">
+									<i class="icofont-bin" title="supprimer" style="color:#f00"></i>
+								</a>
+							</span>
+							<?php }?>
+
+						<br/>
+						<small>ajoute le <em><?= $chat->datedajout_chat()->format('d/m/Y') ; ?>; dernière modification le <?= $chat->datemodif_chat()->format('d/m/Y à H\h i\m\n') ; ?> </em></small></h3>
+						<p>
+							<?=$chat->message() ; ?>
 							
-						</aside>
-					<?php }?>
+						</p>
+
+					<?php } 
+					 if($chats==null)
+					 {
+					 	echo "<p class='no_answer'>Aucune réponse pour l'instant</p>";
+					 }
+
+					 ?>
 
 				</div>
 			</article>
@@ -95,24 +158,50 @@ else
 				<div style="position: fixed;background-color: #fff;">
 					<div id="problem">
 						<h2><i class="icofont-question-circle"></i> Problèmatique</h2>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						<h6><?= $discuss->problem() ; ?></h6>
+						<p>
+							<?= $discuss->details() ; ?>
+						</p>
 					</div>
 					<div id="mydiscuss">
 						<h2><i class="icofont-stack-overflow"></i> Mes discussions</h2>
+						<?php
+							$mines = false;
+							foreach ($mydiscusses as $mydiscuss) {
+								if($mydiscuss->iduser() == $user->iduser())
+								{
+									$mines = true;
+
+							
+						?>
 						<ul class="list-unstyled">
-							<li><button class="btn">quis nostrud exercitation ullamco laboris nisi ...</button></li>
-							<li><button class="btn">quis nostrud exercitation ullamco laboris nisi ...</button></li>
-							<li><button class="btn">quis nostrud exercitation </button></li>
+							<li>
+								<button class="btn">
+									<?= $mydiscuss->problem() ; ?>
+								</button>
+							</li>
 						</ul>
+
+						<?php 
+								}
+								
+							}
+
+							if(!$mines)
+							{
+								echo '<p>Vous n\'avez pas encore créer de discussion';
+							}
+						?>
 					</div>
 
 					<div id="answer">
 						<form id="chat-form" action="../Manager/Action/Chat-form-submit.php">
 							<div class="form-group">
-								<input type="hidden" name="iddiscuss" value="1">
-								<textarea placeholder="répondre au problème ici" name="message"></textarea>
+								<input type="hidden" name="update" value="<?= (isset($_GET['upd'])) ? $_GET['upd'] : false ; ?>">
+
+								<input type="hidden" name="iddiscuss" value="<?= $discuss->iddiscuss() ;  ?>">
+
+								<textarea placeholder="répondre au problème ici" name="message" id="msg"><?= (isset($_GET['upd'])) ? $manager->getUnique($_GET['upd'])->message()  : "" ; ?></textarea>
 								<button class="btn rounded rounded-circle"><i class="icofont-paper-plane"></i></button>
 							</div>
 						</form>

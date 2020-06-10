@@ -64,7 +64,7 @@ if(isset($_GET['del']))
 				<div class="flex-menu ">
 					<span><a href="discussions.php"><i class="icofont-plus rounded rounded-circle"></i></a><br>Nouvelle discussion</span>
 					<span><a href="#discusses-table"><i class="icofont-chat rounded rounded-circle"></i></a><br>Discussions</span>
-					<span><a href=""><i class="icofont-share rounded rounded-circle "></i></a><br>Partager</span>
+					<span><a href=""><i class="icofont-clip rounded rounded-circle signout"></i></a><br>Contenu</span>
 					<span><a href="../index.php"><i class="icofont-home rounded rounded-circle"></i></a><br>Accueil</span>
 				</div>
 			</aside>
@@ -116,6 +116,8 @@ if(isset($_GET['del']))
 								$debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
 								$details = $debut;
 							}
+
+							if($discuss->iduser() == $user->iduser()) {
 						?>
 							<tr style="background-color: <?= ($discuss->iduser()==$user->iduser()) ? "#FFE6DE" : '' ?>";>
 							<th scope="row" style="text-align: center; font-size: 25px; color: #00f;">
@@ -140,6 +142,7 @@ if(isset($_GET['del']))
 							<td><?= $discuss->datemodif_discuss()->format('d/m/Y à H\hi'); ?></td>
 						</tr>
 						<?php
+								}
 							} 
 						?>
 					</tbody>
@@ -175,7 +178,7 @@ if(isset($_GET['del']))
 							<th scope="row" style="text-align: center; font-size: 25px; color: #00f;">
 
 								<a href="chats.php?id=<?=$discuss->iddiscuss(); ?>" style="text-decoration: none;">
-									<i class="icofont-eye" title="voir" style="color:#00f"></i>
+									<i class="icofont-eye" title="voir" style="color:#00f" data-toggle='popover' data-placement = 'top' data-content = 'Voir'></i>
 								</a>
 							</th>
 							<td><?= $discuss->problem(); ?></td>
@@ -187,22 +190,6 @@ if(isset($_GET['del']))
 								}
 							} 
 						?>
-
-						<?php for($i=0; $i<5; $i++) {?>
-						<tr>
-							<th scope="row" style="text-align: center; font-size: 25px; color: #00f;">
-
-								<a href="chats.php" style="text-decoration: none;">
-									<i class="icofont-eye" title="voir" style="color:#00f"></i>
-								</a>
-								
-							</th>
-							<td>cell</td>
-							<td>cell</td>
-							<td>cell</td>
-							<td>cell</td>
-						</tr>
-						<?php } ?>
 					</tbody>
 				</table>
 
