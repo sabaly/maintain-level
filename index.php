@@ -62,10 +62,10 @@
 			
 
 			<div class="social-networks d-none d-lg-block">
-				<a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-				<a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
-				<a href="#" class="whatsapp"><i class="icofont-whatsapp"></i></a>
-				<a href="#" class="email"><i class="icofont-envelope"></i></a>
+				<a href="https://web.facebook.com/thiernomamoudou.sabaly/" class="facebook" target="_blank"><i class="icofont-facebook"></i></a>
+				<a href="https://www.linkedin.com/in/thierno-sabaly-642846151/" class="linkedin" target="_blank"><i class="icofont-linkedin"></i></a>
+				<a href="whatsapp://send?text='Salut'" class="whatsapp"><i class="icofont-whatsapp"></i></a>
+				<a href="mailto:tmssam47@gmail.com" class="email"><i class="icofont-envelope"></i></a>
 				<!--span><i class="icofont-warning status"></i></span-->
 			</div>
 		</div>
@@ -150,6 +150,7 @@
 						<div id="subject-alert" class="alert d-none"></div>
 					</div>
 					<button type='submit' class="btn btn-success">Connexion</button>
+					<div id="signin-alert" class="d-none"></div>
 				</form>
 			</div>
 		</article>
@@ -157,11 +158,11 @@
 
 	<!--=== footer ===-->
 	<footer class="container-fluid">
-		<div class="social-networks d-lg-none">
-			<a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-			<a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
-			<a href="#" class="whatsapp"><i class="icofont-whatsapp"></i></a>
-			<a href="#" class="email"><i class="icofont-envelope"></i></a>
+		<div class="social-networks d-none d-lg-block">
+			<a href="https://web.facebook.com/thiernomamoudou.sabaly/" class="facebook" target="_blank"><i class="icofont-facebook"></i></a>
+			<a href="https://www.linkedin.com/in/thierno-sabaly-642846151/" class="linkedin" target="_blank"><i class="icofont-linkedin"></i></a>
+			<a href="whatsapp://send?text='Salut'" class="whatsapp"><i class="icofont-whatsapp"></i></a>
+			<a href="mailto:tmssam47@gmail.com" class="email"><i class="icofont-envelope"></i></a>
 			<!--span><i class="icofont-warning status"></i></span-->
 		</div>
 

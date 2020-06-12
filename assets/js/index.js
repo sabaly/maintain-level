@@ -1,6 +1,5 @@
 !(function($) {
 	'use strict';
-	
 
 	//Deconnexion
 	$('#disconnect-btn').on('click', function() {
@@ -103,5 +102,23 @@
 	}else if ($(".mobile-ans, .mobile-ans-toggle").length) {
 	    $(".mobile-ans, .mobile-ans-toggle").hide();
 	}
-	
+
+	//Filtrage les discussions à afficher
+	$('.Tous').click(function() {
+		$('.Pastous').attr('disabled', '');
+
+		if(!$(this).is(':checked')) {
+			$('.Pastous').removeAttr('disabled');
+		}
+	});
+	$('.Tous, .Pastous').click(function() {
+		$.ajax({
+			type : 'POST',
+			url : $('#filter-form').attr('action'),
+			data : $('#filter-form').serialize(),
+			success : function(msg) {
+				location.reload();
+			}
+		});
+	});
 })(jQuery);

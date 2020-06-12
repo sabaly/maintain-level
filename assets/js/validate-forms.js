@@ -13,7 +13,7 @@
 
 		if(identifiant.val() == '' || psswd.val() == '') {
 			$('#login-alert ').html('Aucun champs ne doit être vide.');
-			$('#login-alert').slideDown(1500);
+			$('#login-alert').slideDown(1500).delay(1000).slideToggle(1500);
 		}else {
 			var action = $(this).attr('action');
 
@@ -24,9 +24,12 @@
 				success : function(msg) {
 					if(msg == 'CONNECTED') {
 						location.reload();
-					}
-					else {
-						alert(msg);
+					}else if(msg == 'WRONG_PASSWORD'){
+						$('#login-alert ').html('Mot de passe incorrect');
+						$('#login-alert').slideDown(1500).delay(1000).slideToggle(1500);
+					}else if(msg == 'NO_ACCOUNT') {
+						$('#login-alert ').html('Voyez créer un compte d\'abord');
+						$('#login-alert').slideDown(1500).delay(1000).slideToggle(1500);
 					}
 				} 
 			});
@@ -41,7 +44,7 @@
 			psswd = $('#password'),
 			rpsswd = $('#psswd-conf');
 		
-		if(pseudo.val() != '' && pseudo.val().length < 2) {
+		if(pseudo.val().length < 2) {
 			pseudo.removeClass('success')
 			pseudo.addClass('error');
 		}else {
@@ -86,15 +89,27 @@
 			url : action,
 			data : donnees,
 			success : function(msg) {
-				alert(msg);
+				$('#signin-alert').removeClass('d-none').hide();
 				if(msg == 'Existant') {
 					$('#iden').val('');
 					$('#iden').removeClass('success');
 					$('#iden').addClass('error');
+					if($('#signin-alert').hasClass('success')) {
+						$('#signin-alert').removeClass('success');
+					}
+					$('#signin-alert').addClass('alert');
+					$('#signin-alert').html('Pseudo utilisé');
+					$('#signin-alert').slideDown(1500).delay(1000).slideToggle(1500);
 				}else if(msg == 'OK') {
 					$('#signin-form input').val('');
 					$('#state option').val("Candidat (e)");
 					$('#subject option').val("L2");
+					if($('#signin-alert').hasClass('alert')) {
+						$('#signin-alert').removeClass('alert');
+					}
+					$('#signin-alert').addClass('success');
+					$('#signin-alert').html('Compte créé avec succès');
+					$('#signin-alert').slideDown(1500).delay(1000).slideToggle(1500);
 				}
 			}
 		});
@@ -103,6 +118,20 @@
 
 
 	/* 	Validation for discuss form 	*/
+	$('.tous').click(function() {
+		$('.pastous').attr('checked', '');
+		$('.pastous').attr('disabled', '');
+
+		if(!$(this).is(':checked')) {
+			$('.pastous').removeAttr('checked');
+			$('.pastous').removeAttr('disabled');
+		}
+	});
+
+
+
+	
+		
 	$('#discuss-form').submit(function(e) {
 		e.preventDefault();
 

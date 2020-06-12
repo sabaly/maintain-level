@@ -1,5 +1,4 @@
 
-
 /*	some classes		*/
 .alert {
 	color: red;
@@ -189,6 +188,12 @@
 	padding: 5px;
 	color: #00f;
 	font-size: 50px;
+}
+
+@media (max-width: 768px) {
+	.flex-menu span i{
+		font-size: 40px;
+	}
 }
 
 .flex-menu span i:hover {

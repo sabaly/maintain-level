@@ -82,6 +82,47 @@ if(isset($_GET['del']))
 
 							<input type="text" name="problem" class="form-control" id="pro" value="<?= (isset($_GET['id'])) ? $manager->getUnique($_GET['id'])->problem() : "" ;?>">
 						</div>
+						<div class="form-group">
+							<?php
+								$pastous = 'checked disabled';
+								$tous = 'checked';
+								$s1 = ''; $s2 =''; $l1 = ''; $l2='';
+
+								if(isset($_GET['id']))
+								{
+									$cible = $manager->getUnique($_GET['id'])->cible();
+									
+									if($cible != 'tous')
+									{
+										$tous = '';
+										$pastous = '';
+										if(strstr($cible, "S1"))
+										{
+											$s1 = 'checked';
+										}
+										if(strstr($cible, "S2"))
+										{
+											$s2 = 'checked';
+										}
+										if(strstr($cible, "L'"))
+										{
+											$l1 = 'checked';
+										}
+										if(strstr($cible, "L2"))
+										{
+											$l2 = 'checked';
+										}
+									}
+								}
+							?>
+							<label for="spe">Pour : </label>
+							<input type="checkbox" name="tout" class="tous"  <?= $tous ?>> Tous
+							<input type="checkbox" name="S1" class="pastous" <?= $pastous, $s1 ?>> S1 
+							<input type="checkbox" name="S2" class="pastous" <?= $pastous, $s2?>> S2 
+							<input type="checkbox" name="L'" class="pastous" <?= $pastous, $l1?>> L' 
+							<input type="checkbox" name="L2" class="pastous" <?= $pastous, $l2?>> L2
+							
+						</div>
 
 						<div class="form-group">
 							<label for="detaille">Détails</label>
@@ -99,6 +140,7 @@ if(isset($_GET['del']))
 							<th scope="row">Mes discussions</th>
 							<th scope="col">Problème</th>
 							<th scope="col">Détails</th>
+							<th scope="col">cible</th>
 							<th scope="col">date d'ajout</th>
 							<th scope="col">Dernière Modification</th>
 						</tr>
@@ -138,6 +180,7 @@ if(isset($_GET['del']))
 							</th>
 							<td><?= $discuss->problem(); ?></td>
 							<td><?= $details; ?></td>
+							<td><?= $discuss->cible(); ?></td>
 							<td><?= $discuss->datedajout_discuss()->format('d/m/Y à H\hi'); ?></td>
 							<td><?= $discuss->datemodif_discuss()->format('d/m/Y à H\hi'); ?></td>
 						</tr>
@@ -147,20 +190,39 @@ if(isset($_GET['del']))
 						?>
 					</tbody>
 				</table>
+				<?php
+					if($_SESSION['toshow']=='') $toshow='tous';
+					else $toshow = $_SESSION['toshow'];
+				?>
 
+				<form id="filter-form" action="../Manager/Action/Filter.php" methode='post' style="padding: 10px; margin-top: 20px; margin-bottom: 0px;">
+					<div class="form-group">
+							<label for="spe">Filtrer : </label>
+							<input type="checkbox" name="tout" class="Tous" <?= ($toshow == 'tous') ? 'checked' : ''?>> Tous
+							<input type="checkbox" name="S1" class="Pastous" <?= ($toshow == 'tous') ? 'disabled' : ''?> <?= strstr($toshow, 'S1') ? 'checked' : '' ; ?> <?= ($user->subject() == 'S1') ? 'checked disabled' : ''?>> S1 
+							<input type="checkbox" name="S2" class="Pastous"  <?= ($toshow == 'tous') ? 'disabled' : ''?> <?= strstr($toshow, 'S2') ? 'checked' : '' ; ?> <?= ($user->subject() == 'S2') ? 'checked disabled' : ''?>> S2 
+							<input type="checkbox" name="L'" class="Pastous"  <?= ($toshow == 'tous') ? 'disabled' : ''?> <?= strstr($toshow, 'L\'') ? 'checked' : '' ; ?> <?= ($user->subject() == 'L\'') ? 'checked disabled' : ''?>> L' 
+							<input type="checkbox" name="L2" class="Pastous"  <?= ($toshow == 'tous') ? 'disabled' : ''?> <?= strstr($toshow, 'L2') ? 'checked' : '' ; ?> <?= ($user->subject() == 'L2') ? 'checked disabled' : ''?>> L2
+						</div>
+				</form>
+				
 				<table class="table table-hover table-bordered" id="discusses-table">
 					<thead style="background-color: #00f;color: #fff">
 						<tr>
 							<th scope="row">Autres</th>
 							<th scope="col">Problème</th>
 							<th scope="col">Détails</th>
+							<th scope="col">cible</th>
 							<th scope="col">date d'ajout</th>
 							<th scope="col">Dernière Modification</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($discusses as $discuss) 
+
+						<?php
+						foreach ($discusses as $discuss) 
 						{
+
 							if(strlen($discuss->details()) < 100)
 							{
 								$details = $discuss->details();
@@ -171,9 +233,25 @@ if(isset($_GET['del']))
 								$debut = substr($debut, 0, strrpos($debut, ' ')) . '...';
 								$details = $debut;
 							}
+						?>
+						<?php
+							$cible = explode(' ', $toshow);
+							$element = false;
 
 							if($discuss->iduser() != $user->iduser()) {
+								if($toshow != 'tous') {
+									foreach ($cible as $cible_toshow) {
+										if($cible_toshow=="") continue;
+										if(strstr($discuss->cible(), $cible_toshow))
+										{
+											$element = true;
+											break;
+										}
+									}
+									if(!$element) continue;
+								}
 						?>
+
 							<tr>
 							<th scope="row" style="text-align: center; font-size: 25px; color: #00f;">
 
@@ -181,8 +259,9 @@ if(isset($_GET['del']))
 									<i class="icofont-eye" title="voir" style="color:#00f" data-toggle='popover' data-placement = 'top' data-content = 'Voir'></i>
 								</a>
 							</th>
-							<td><?= $discuss->problem(); ?></td>
+							<td><?= $discuss->problem() ; ?></td>
 							<td><?= $details; ?></td>
+							<td><?= $discuss->cible(); ?></td>
 							<td><?= $discuss->datedajout_discuss()->format('d/m/Y à H\hi'); ?></td>
 							<td><?= $discuss->datemodif_discuss()->format('d/m/Y à H\hi'); ?></td>
 						</tr>
