@@ -1,6 +1,7 @@
 !(function($) {
 	'use strict';
 
+	
 	//Deconnexion
 	$('#disconnect-btn').on('click', function() {
 		$.ajax({

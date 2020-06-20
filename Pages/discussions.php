@@ -53,6 +53,16 @@ if(isset($_GET['del']))
 
   	<!--=== Google Fonts ===-->
   	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  	<!--=== adding mathjax===-->
+	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+		});
+	</script>
 </head>
 <body>
 	<!--=== header ===-->
@@ -291,5 +301,29 @@ if(isset($_GET['del']))
 	<!--=== My JS files ===-->
 	<script type="text/javascript" src="../assets/js/index.js"></script>
 	<script type="text/javascript" src="../assets/js/validate-forms.js"></script>
+
+	<!--== r&fraichir ===-->
+	<script type="text/javascript">
+		!(function($) {
+			recharge();
+		})(jQuery);
+
+		function recharge() {
+			setTimeout(function() {
+				$.ajax({
+					type : 'GET',
+					url : '../Manager/Action/Check-ForRefresh.php',
+					success: function(msg) {
+						if((msg.indexOf('REFRESH_DISCUSS') !== -1 )) {
+							location.reload();
+						}
+					}
+				});
+
+				recharge();
+			
+			}, 1000);
+		}
+	</script>
 </body>
 </html>

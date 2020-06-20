@@ -1,7 +1,7 @@
 !(function($) {
 	'use strict';
 
-
+	
 	/*		Validation for login formular 	*/
 	$('#login-form').submit(function(e) {
 		e.preventDefault();
@@ -176,7 +176,11 @@
 			url : action,
 			data : message,
 			success : function(msg) {
-				location.reload();
+				if(msg=='OK') {
+					location.reload();
+				}else if(msg=='Modifie') {
+					location.replace('./chats.php?id='+$('#iddiscuss').val());
+				}
 			}
 		});
 	});
@@ -190,7 +194,7 @@
 			$('.mobile-ans #msg-mobile').addClass('error');
 			return false;
 		}else if($('.mobile-ans #msg-mobile').hasClass('error')){
-			$('.mobile-ans #msg-moile').removeClass('error');
+			$('.mobile-ans #msg-mobile').removeClass('error');
 		}
 			
 
@@ -202,7 +206,12 @@
 			url : action,
 			data : message,
 			success : function(msg) {
-				location.reload();
+				if(msg=='OK') {
+					location.reload();
+				}else if(msg=='Modifie') {
+					location.replace('./chats.php?id='+$('#mobile-iddiscuss').val());
+				}
+				
 			}
 		});
 	});

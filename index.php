@@ -158,7 +158,7 @@
 
 	<!--=== footer ===-->
 	<footer class="container-fluid">
-		<div class="social-networks d-none d-lg-block">
+		<div class="social-networks d-lg-none">
 			<a href="https://web.facebook.com/thiernomamoudou.sabaly/" class="facebook" target="_blank"><i class="icofont-facebook"></i></a>
 			<a href="https://www.linkedin.com/in/thierno-sabaly-642846151/" class="linkedin" target="_blank"><i class="icofont-linkedin"></i></a>
 			<a href="whatsapp://send?text='Salut'" class="whatsapp"><i class="icofont-whatsapp"></i></a>
